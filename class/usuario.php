@@ -32,6 +32,32 @@ class Usuario{
 			$this->setSenha($row['senha']);
 		}
 	}
+	public static function getList(){
+		$sql = new Sql();
+		return $sql->select("SELECT * FROM usuarios ORDER BY id;");
+	}
+	public static function search($id){
+		$sql = new Sql();
+		return $sql->select("SELECT * FROM usuarios WHERE id LIKE :SEARCH ORDER BY id", array(
+			':SEARCH'=>"%".$id."%"
+		));
+	}
+	public function login($usuario, $senha){
+		$sql = new Sql();
+		$results = $sql->select("SELECT * FROM usuarios WHERE usuario = :USUARIO AND senha = :SENHA", array(
+			":USUARIO"=>$usuario,
+			":SENHA"=>$senha
+		));
+		if (count($results) > 0){
+			$row = $results[0];
+			$this->setIdUsuario($row['id']);
+			$this->setUsuario($row['usuario']);
+			$this->setSenha($row['senha']);
+		}else{
+			throw new Exception("Login ou senha inválido");			
+		}
+
+	}
 	public function __toString(){
 		return json_encode(array(
 			"id"=>$this->getIdUsuario(),
