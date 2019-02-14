@@ -26,10 +26,7 @@ class Usuario{
 		$sql = new Sql();
 		$results = $sql->select("SELECT * FROM usuarios WHERE id = :ID", array(":ID"=>$id));
 		if (count($results) > 0){
-			$row = $results[0];
-			$this->setIdUsuario($row['id']);
-			$this->setUsuario($row['usuario']);
-			$this->setSenha($row['senha']);
+			$this->setData($results[0]);
 		}
 	}
 	public static function getList(){
@@ -49,14 +46,31 @@ class Usuario{
 			":SENHA"=>$senha
 		));
 		if (count($results) > 0){
-			$row = $results[0];
-			$this->setIdUsuario($row['id']);
-			$this->setUsuario($row['usuario']);
-			$this->setSenha($row['senha']);
+			$this->setData($results[0]);			
 		}else{
 			throw new Exception("Login ou senha inválido");			
 		}
 
+	}
+	public function setData($data){
+		$this->setIdUsuario($data['id']);
+		$this->setUsuario($data['usuario']);
+		$this->setSenha($data['senha']);
+	}
+	public function insert(){
+		$sql = new Sql();
+		$results = $sql->select("CALL sp_usuarios_insert(:LOGIN, :PASSWORD)", array(
+				':LOGIN'=>$this->getUsuario(),
+				':PASSWORD'=>$this->getSenha()
+		));
+		if(count($results) > 0){
+			$this->setData($results[0]);
+		}
+
+	}
+	public function __construct($usuario = "", $senha = ""){
+		$this->setUsuario($usuario);
+		$this->setSenha($senha);
 	}
 	public function __toString(){
 		return json_encode(array(

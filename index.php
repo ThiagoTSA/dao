@@ -18,7 +18,12 @@
 	$search = Usuario::search("1");
 	echo json_encode($search);
 	*/
+	/*
 	$usuario = new Usuario();
 	$usuario->login("555","admin");
 	echo $usuario;
+	*/
+	$aluno = new Usuario("x", "x");
+	$aluno->insert();
+	echo $aluno;
 ?>
