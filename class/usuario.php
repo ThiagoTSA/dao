@@ -68,6 +68,17 @@ class Usuario{
 		}
 
 	}
+	public function update($user, $pass){
+		$this->setUsuario($user);
+		$this->setSenha($pass);
+
+		$sql = new Sql();
+		$sql->query("UPDATE usuarios SET usuario = :USUARIO, senha = :SENHA WHERE id = :ID", array(
+			':USUARIO'=>$this->getUsuario(),
+			':SENHA'=>$this->getSenha(),
+			':ID'=>$this->getIdUsuario()
+		));
+	}
 	public function __construct($usuario = "", $senha = ""){
 		$this->setUsuario($usuario);
 		$this->setSenha($senha);

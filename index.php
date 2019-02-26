@@ -23,7 +23,15 @@
 	$usuario->login("555","admin");
 	echo $usuario;
 	*/
+	/*
 	$aluno = new Usuario("x", "x");
 	$aluno->insert();
 	echo $aluno;
+	*/
+	
+	$usuario = new Usuario();
+	$usuario->loadById(15);
+	$usuario->update("bsb","bsb");
+	echo $usuario;
+	
 ?>
