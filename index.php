@@ -28,10 +28,14 @@
 	$aluno->insert();
 	echo $aluno;
 	*/
-	
+	/*
 	$usuario = new Usuario();
 	$usuario->loadById(15);
 	$usuario->update("bsb","bsb");
 	echo $usuario;
-	
+	*/
+	$usuario = new Usuario();
+	$usuario->loadById(11);
+	$usuario->delete();
+	echo $usuario;
 ?>

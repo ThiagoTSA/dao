@@ -79,6 +79,16 @@ class Usuario{
 			':ID'=>$this->getIdUsuario()
 		));
 	}
+	public function delete(){
+		$sql = new Sql();
+		$sql->query("DELETE FROM usuarios WHERE id = :ID", array(
+			':ID'=>$this->getIdUsuario()
+		));
+		//Zerando os dados no objeto!
+		$this->setIdUsuario(0);
+		$this->setUsuario("");
+		$this->setSenha("");
+	}
 	public function __construct($usuario = "", $senha = ""){
 		$this->setUsuario($usuario);
 		$this->setSenha($senha);
